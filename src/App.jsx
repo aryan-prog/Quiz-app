@@ -53,12 +53,12 @@ function App() {
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [showScore, setShowScore] = useState(false);
 	const [score, setScore] = useState(0);
-	const [currentColor, setCurrentColor] = useState('#252d4a');
+	const [currentColor, setCurrentColor] = useState('#5E5DF0');
 	const [buttonText, setButtonText] = useState('Result');
 
 
 	const changeColor = (isCorrect) => {
-		let newColor='#252d4a';
+		let newColor='#5E5DF0';
 		let newText='Result';
 		if(isCorrect)
 		{

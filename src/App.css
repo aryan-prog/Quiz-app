@@ -132,14 +132,6 @@ body {
   border: 0;
 }
 
-.correct {
-  background-color: #2f922f;
-}
-
-.incorrect {
-  background-color: #ff3333;
-}
-
 button:hover {
   background-color: #555e7d;
 }
