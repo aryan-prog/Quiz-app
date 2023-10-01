@@ -53,19 +53,42 @@ function App() {
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [showScore, setShowScore] = useState(false);
 	const [score, setScore] = useState(0);
+	const [currentColor, setCurrentColor] = useState('#252d4a');
+	const [buttonText, setButtonText] = useState('Result');
+
+
+	const changeColor = (isCorrect) => {
+		let newColor='#252d4a';
+		let newText='Result';
+		if(isCorrect)
+		{
+			newColor='#198754';
+			newText='Correct';
+		}
+		else
+		{
+			newColor='#FA113D';
+			newText='Wrong';
+		}
+
+		setCurrentColor(newColor);
+		setButtonText(newText);
+	  };
 
 	const handleAnswerOptionClick = (isCorrect) => {
 		if (isCorrect) {
 			setScore(score + 1);
 		}
-
+		changeColor(isCorrect);
 		handleNextClick();
 	};
 
   const handleNextClick = () =>{
     const nextQuestion = currentQuestion + 1;
 		if (nextQuestion < questions.length) {
-			setCurrentQuestion(nextQuestion);
+			setTimeout(() => {
+				setCurrentQuestion(nextQuestion);
+			  }, 500);
 		} else {
 			setShowScore(true);
 		}
@@ -96,6 +119,7 @@ function App() {
 			)}
 		</div>
     <button className='next-button' onClick={handleNextClick}>Next</button>
+	<button className='result-button' style={{ backgroundColor: currentColor }}>{buttonText}</button>
     </>
 	);
 }
