@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './App.css'
 
 function App() {
@@ -55,6 +55,7 @@ function App() {
 	const [score, setScore] = useState(0);
 	const [currentColor, setCurrentColor] = useState('#5E5DF0');
 	const [buttonText, setButtonText] = useState('Result');
+	const [timer, setTimer] = useState(10); // Initialize the timer with 10 seconds
 
 
 	const changeColor = (isCorrect) => {
@@ -88,14 +89,44 @@ function App() {
 		if (nextQuestion < questions.length) {
 			setTimeout(() => {
 				setCurrentQuestion(nextQuestion);
+				setTimer(10);
 			  }, 500);
 		} else {
 			setShowScore(true);
 		}
   }
+
+  const handleTimeout = () => {
+    handleNextClick();
+  };
+
+  useEffect(() => {
+    // Start the timer when the component mounts
+    const timerInterval = setInterval(() => {
+      setTimer((prevTimer) => {
+        if (prevTimer <= 0) {
+          clearInterval(timerInterval);
+          handleTimeout(); // Timer reached 0, handle timeout
+          return 0;
+        }
+        return prevTimer - 1;
+      });
+    }, 1000);
+
+	if (showScore) {
+		clearInterval(timerInterval);
+	}
+
+    return () => {
+      clearInterval(timerInterval); // Clear the timer interval on unmount
+    };
+  }, [currentQuestion,showScore]);
   
 	return (
     <>
+	<div className='timer'>
+        <h3>Time Left: {timer} seconds</h3>
+      </div>
     <h1>Quiz App</h1>
 		<div className='app'>
 			{showScore ? (

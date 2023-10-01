@@ -33,6 +33,10 @@ h1 {
   line-height: 1.1;
 }
 
+h1,h3{
+  color:#02064e;
+}
+
 /* button {
   border-radius: 8px;
   border: 1px solid transparent;
